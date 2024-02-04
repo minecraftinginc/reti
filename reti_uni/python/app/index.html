@@ -1,0 +1,243 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>EDFilms</title>
+        
+        <link rel="icon" href="static/img/Icona_Scheda.png" sizes="32x32">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    
+        <link rel="stylesheet" href="static/css/style.css">
+        <style>
+            .navbar{
+                position:fixed;
+                z-index: 3;
+                width:100%;
+            }
+            #chatMessages {
+                height: 300px;
+                width:600px;
+                overflow-y: scroll;
+                border: 1px solid #ccc;
+                padding: 10px;
+                border-radius: 8px;
+            }
+
+            #messageInput {
+                width: 600px;
+                padding: 5px;
+                margin-top: 10px;
+                border-radius: 8px;
+            }
+
+            button {
+                margin-top: 10px;
+            }
+            .centrale{
+                left: 30%;
+                position: absolute;
+
+            }
+            #chatMessages {
+                margin-bottom: 10px;
+            }
+
+            #messageInput {
+                margin-top: 10px;
+            }
+            .pulsante {
+                display: inline-block;
+                padding: 10px 20px;
+                font-size: 16px;
+                text-align: center;
+                text-decoration: none;
+                color:#360B72;
+                cursor: pointer;
+                border-radius: 5px; /* Angoli arrotondati */
+                transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            }   
+            /* Stile quando il cursore passa sopra al pulsante */
+            .pulsante:hover {
+                background-color: #9825B6; /* Colore di sfondo al passaggio del mouse */
+                color: white; /* Colore del testo al passaggio del mouse */
+            }
+        </style>
+      </head>
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color: #33006E; height: 12%">
+
+        <div class="container-fluid" style="background-color: #33006E;">
+            <a class="navbar-brand" href="#"><img src="static/img/Logo.png" alt="Bootstrap" width="120" height="90"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="http://127.0.0.1/Home.html"
+                            style="color: white;"><h4>Home</h4></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1/nuovo.html"
+                            style="color: white;"><h4>Film</h4></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="http://127.0.0.1/accesso.html"
+                          style="color: white;"><h4>Accesso</h4></a>
+                  </li>
+                  </ul>
+                </ul>
+                <form class="d-flex" role="search" onsubmit="event.preventDefault(); SEARCH()" method="POST">
+                    <input class="form-control me-2" type="search" placeholder="Cerca..." aria-label="Search"
+                        name="search_query" id="nome">
+                    <button class="btn btn-outline-success" type="submit"
+                        style="color:#FFFFFF">Ricerca</button>
+                </form>
+            </div>
+        </div>
+  
+    </nav><br><br><br><br><br><br><br><br>
+    <div class="centrale">
+        <div id="chatMessages"></div>
+        <input type="text" id="messageInput" placeholder="Type your message">
+        <button onclick="requestMetasource()" class="pulsante">Download</button>
+    </div>
+    
+    <script>
+    const socket = new WebSocket('ws://localhost:8080');
+const currentUrl = window.location.href;
+const username = getParameterByName('username', currentUrl);
+let cod_film = getParameterByName('cod_film', currentUrl);
+
+// Funzione per ottenere il valore del parametro dall'URL
+function getParameterByName(name, url) {
+    if (!url) {
+        url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+    const results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+// Funzione per ottenere il cod_film
+function getcod_film() {
+    cod_film = getParameterByName('cod_film', currentUrl);
+}
+
+async function initWebSocket() {
+    await new Promise(async (resolve) => {
+        socket.addEventListener('open', async (event) => {
+            console.log('WebSocket connection opened:', event);
+            getcod_film();
+
+            if (cod_film) {
+                console.log(cod_film);
+
+                // Invia il messaggio di join al server WebSocket
+                socket.send(JSON.stringify({ action: 'join', cod_film }));
+
+                // Invia il messaggio di join al server Flask
+                await fetch(`http://localhost:5000/join?cod_film=${cod_film}`);
+
+                // Aggiorna il log della chat lato client
+                await fetchAndDisplayChatLog();
+
+            } else {
+                console.error('cod_film is null or undefined. Unable to send "join" message.');
+            }
+            resolve();
+        });
+    });
+
+    // Event listener per gestire i messaggi in arrivo durante l'esecuzione
+    socket.addEventListener('message', async (event) => {
+        const data = JSON.parse(event.data);
+        console.log('Received message:', data);
+
+        // Aggiorna il log della chat lato client ogni volta che arriva un nuovo messaggio
+        await fetchAndDisplayChatLog();
+    });
+}
+
+// Funzione per richiedere e visualizzare il log della chat dal server Flask
+async function fetchAndDisplayChatLog() {
+    const response = await fetch(`http://localhost:5000/get_chat_log?cod_film=${cod_film}`);
+    const responseData = await response.json();
+    console.log(responseData);
+    console.log(response);
+    if (responseData.status === "success") {
+        const chatLogContent = responseData.content;
+
+        const chatMessages = document.getElementById('chatMessages');
+        chatMessages.innerHTML = chatLogContent
+            .split('\n')
+            .map(line => `<p>${line}</p>`)
+            .join('');
+
+    } else {
+        console.error(`Error fetching chat log: ${responseData.message}`);
+    }
+}
+
+function sendMessage() {
+    const messageInput = document.getElementById('messageInput');
+    const message = messageInput.value;
+    const payload = { action: 'message', cod_film, username, message };
+
+    socket.send(JSON.stringify(payload));
+
+    messageInput.value = '';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initWebSocket();
+
+    const messageInput = document.getElementById('messageInput');
+    messageInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    });
+})
+async function requestMetasource() {
+            // Invia una richiesta al server per ottenere il metasource
+            const response = await fetch(`http://localhost:5000/request_metasource?cod_film=${cod_film}`);
+            const responseData = await response.json();
+
+            if (responseData.status === "success") {
+                console.log('Metasource received:', responseData.data);
+                downloadFile(responseData.data);
+            } else {
+                console.error(`Error requesting metasource: ${responseData.message}`);
+            }
+        }
+        async function downloadFile(dati) {
+            const response = await fetch(`http://localhost:5000/download?file=${dati}`);
+            const blob = await response.blob();
+            console.log("ciao");
+            console.log(blob);
+            console.log("ciao");
+            // Crea un oggetto URL dal blob e crea un link invisibile per il download
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.style.display = "none";
+            a.href = url;
+            a.download = `chat_log${dati}.txt`;
+            console.log(a.download);
+            document.body.appendChild(a);
+            a.click();
+
+            // Rimuove il link dal documento
+            document.body.removeChild(a);
+
+            // Rilascia l'URL dell'oggetto
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
+    
+</body>
+</html>
