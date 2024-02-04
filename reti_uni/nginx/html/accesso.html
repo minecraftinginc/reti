@@ -1,0 +1,131 @@
+<html>
+</head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EDFilms</title>
+    
+    <link rel="icon" href="Icona_Scheda.png" sizes="32x32">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+</head>    
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color: #33006E; height: 12%">
+
+        <div class="container-fluid" style="background-color: #33006E;">
+            <a class="navbar-brand" href="#"><img src="Logo.png" alt="Bootstrap" width="120" height="90"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Home.html"
+                            style="color: white;"><h4>Home</h4></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="nuovo.html"
+                            style="color: white;"><h4>Film</h4></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="accesso.html"
+                          style="color: white;"><h4>Accesso</h4></a>
+                  </li>
+                  </ul>
+                </ul>
+                <form class="d-flex" role="search" onsubmit="event.preventDefault(); SEARCH()" method="POST">
+                    <input class="form-control me-2" type="search" placeholder="Cerca..." aria-label="Search"
+                        name="search_query" id="nome">
+                    <button class="btn btn-outline-success" type="submit"
+                        style="color:#FFFFFF">Ricerca</button>
+                </form>
+            </div>
+        </div>
+  
+    </nav>
+    <div class="carousel-inner">
+        <div class="item active" >
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+          <a href="Login.html"><img src="Login1.png" width="30%" height="90%" style="position:absolute; top:38px; left:20%; align-items: center;"
+          onmouseover="this.src='Login2.png';"
+          onmouseout="this.src='Login1.png'"/>
+          <a href="Registrazione.html"><img src="Sign1.png" width="30%" height="90%" style="position:absolute; top:38px; left:50%; align-items: center;"
+          onmouseover="this.src='Sign2.png';"
+          onmouseout="this.src='Sign1.png'"/>
+        </div> 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script>
+
+    function handleCheckboxClick(event, checkboxId) {
+          // Impedisci la propagazione dell'evento per evitare la chiusura del dropdown
+          event.stopPropagation();
+
+          // Trova il checkbox associato e cambia il suo stato
+          var checkbox = document.getElementById(checkboxId);
+          checkbox.checked = !checkbox.checked;
+      }
+        var genreCheckboxes = document.querySelectorAll('.form-check input[type="checkbox"]');
+        console.log(genreCheckboxes.length);
+        genreCheckboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('click', function (event) {
+                handleCheckboxClick(event, checkbox.id);
+            });
+        });
+      // Funzione per ottenere il valore del parametro dall'URL
+      function getParameterByName(name, url) {
+          if (!url) {
+           url = window.location.href;
+          }
+          name = name.replace(/[\[\]]/g, "\\$&");
+          const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+          const results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, " "));
+       }
+      function SEARCH() {
+            let nome = document.getElementById('nome').value;
+            let url;
+            // Get the 'username' from the URL parameter
+            const username = getParameterByName('username', window.location.href);
+            if(username !== null || username !== undefined || username.length > 0){
+                // Construct the URL with both parameters
+                url = `http://127.0.0.1/api/search?nome=${encodeURIComponent(nome)}&username=${encodeURIComponent(username)}`;
+            }
+            else{
+                url = `http://127.0.0.1/api/search?nome=${encodeURIComponent(nome)}`;
+            }
+
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Attendiamo la risposta come JSON
+            })
+            .then(responseJson => {
+                if (responseJson.film) {
+                    // Serializza l'oggetto film in una stringa JSON e passalo nell'URL
+                    let filmData = encodeURIComponent(JSON.stringify(responseJson.film));
+
+                    // Reindirizzamento alla pagina search.html con i dati nell'URL
+                    window.location.href = `search.html?nome=${filmData}`;
+                } else {
+                    console.log(responseJson.error); // Messaggio se non è stato trovato alcun film
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        
+    </script>
+</body>
+</html>    

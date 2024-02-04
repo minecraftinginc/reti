@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inserimento Azione</title>
+</head>
+<body>
+    <h1>Inserimento Azione</h1>
+    <form id="azioneForm">
+        <label for="descrizione">Descrizione:</label>
+        <input type="text" id="descrizione" name="descrizione" required><br><br>
+        <button type="submit">Inserisci Azione</button>
+    </form>
+
+    <script>
+        function handleCheckboxClick(event, checkboxId) {
+          // Impedisci la propagazione dell'evento per evitare la chiusura del dropdown
+          event.stopPropagation();
+
+          // Trova il checkbox associato e cambia il suo stato
+          var checkbox = document.getElementById(checkboxId);
+          checkbox.checked = !checkbox.checked;
+      }
+        var genreCheckboxes = document.querySelectorAll('.form-check input[type="checkbox"]');
+        console.log(genreCheckboxes.length);
+        genreCheckboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('click', function (event) {
+                handleCheckboxClick(event, checkbox.id);
+            });
+        });
+      document.getElementById('searchButton').addEventListener('click', function () {
+            // Logica per ottenere l'username
+            const username = getParameterByName('username', window.location.href);
+
+            // Logica per ottenere le categorie
+            const categorie = getCategories();
+
+            // Aggiungi i parametri all'URL di destinazione
+            const form = document.getElementById('searchForm');
+            console.log(username);
+            console.log(categorie);
+            // Costruisci l'URL di destinazione manualmente
+            const destinationUrl = `categoriefilm.html?username=${encodeURIComponent(username)}&categorie=${categorie}`;
+
+            // Esegui la redirezione manuale
+            window.location.href = destinationUrl;
+        });
+
+        function getCategories() {
+            const checkboxes = document.querySelectorAll('.form-check input[type="checkbox"]:checked');
+            const selectedCategories = Array.from(checkboxes).map(checkbox => encodeURIComponent(checkbox.id.replace("Checkbox", "")));
+            console.log(selectedCategories); // Controlla i valori qui
+            return selectedCategories.join(",");
+        }
+        document.getElementById('azioneForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Previeni il comportamento predefinito del form
+
+            // Ottieni il valore inserito nell'input 'descrizione'
+            var descrizione = document.getElementById('descrizione').value;
+
+            // Crea un oggetto con i dati da inviare al server
+            var data = {
+                'descrizione': descrizione
+            };
+            console.log(data);
+            console.log(JSON.stringify(data));
+            // Esegui una richiesta POST al server Flask
+            fetch('http://127.0.0.1/api/azione', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Gestisci la risposta ricevuta dal server
+                console.log(data); // Stampa la risposta nella console
+                alert(data.message); // Visualizza un alert con il messaggio ricevuto
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+            });
+        });
+    </script>
+</body>
+</html>

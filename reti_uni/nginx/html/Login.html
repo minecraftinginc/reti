@@ -1,0 +1,439 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EDFilms</title>
+
+    <link rel="icon" href="Icona_Scheda.png" sizes="32x32">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color: #33006E; height: 12%">
+
+        <div class="container-fluid" style="background-color: #33006E;">
+            <a class="navbar-brand" href="#"><img src="Logo.png" alt="Bootstrap" width="120" height="90"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Home.html"
+                            style="color: white;"><h4>Home</h4></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="nuovo.html"
+                            style="color: white;"><h4>Film</h4></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            <h4>Generi</h4>
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li class="nav-item">
+                              <a style="color: white; text-align: center"><h6>Seleziona Generi:</h6></a>
+                          </li>
+                          <form action="categoriefilm.html" method="get" id="searchForm">   
+                          <li>
+                              <div class="form-check genre-item">
+                                <input class="form-check-input" type="checkbox" id="azioneCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                <label class="form-check-label" for="azioneCheckbox">
+                                  <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'azioneCheckbox')">Azione</a>
+                                </label>
+                              </div>
+                            </li>
+                            <li>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="avventuraCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                    <label class="form-check-label genre-item" for="avventuraCheckbox">
+                                        <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'avventuraCheckbox')">Avventura</a>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="biograficoCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                <label class="form-check-label genre-item" for="biograficoCheckbox">
+                                    <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'biograficoCheckbox')">Biografico</a>
+                                </label>
+                            </div>
+                            </li>
+                            <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="commediaCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="commediaCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'commediaCheckbox')">Commedia</a>
+                                  </label>
+                              </div>
+                            </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="drammaticoCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="drammaticoCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'drammaticoCheckbox')">Drammatico</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="fantascienzaCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="fantascienzaCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'fantascienzaCheckbox')">Fantascienza</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="fantasyCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="fantasyCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'fantasyCheckbox')">Fantasy</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="horrorCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="horrorCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'horrorCheckbox')">Horror</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="musicaleCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="musicaleCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'musicaleCheckbox')">Musicale</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="poliziescoCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="poliziescoCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'poliziescoCheckbox')">Poliziesco</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="romanticoCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="romanticoCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'romanticoCheckbox')">Romantico</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="storicoCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="storicoCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'storicoCheckbox')">Storico</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="thrillerCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="thrillerCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'thrillerCheckbox')">Thriller</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="westernCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="westernCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'westernCheckbox')">Western</a>
+                                  </label>
+                              </div>
+                          </li>
+                              
+                          <button type="button" id="searchButton" class="btn btn-outline-success" style="color: #FFFFFF; background: #33006E;" onmouseover="this.style.background='#FF00AD'" onmouseout="this.style.background='#33006E'">Applica Ricerca Dettagliata</button>
+  
+                          </form>
+  
+                      </li>
+                  </ul>
+                </ul>
+                <form class="d-flex" role="search" onsubmit="event.preventDefault(); SEARCH()" method="POST">
+                    <input class="form-control me-2" type="search" placeholder="Cerca..." aria-label="Search"
+                        name="search_query" id="nome">
+                    <button class="btn btn-outline-success" type="submit"
+                        style="color:#FFFFFF">Ricerca</button>
+                </form>
+            </div>
+        </div>
+  
+        <div class="nav-item dropdown">
+            <a class="navbar-brand" href="#"><img src="Login1.png" alt="Bootstrap" width="60" height="60"
+                    id="profileImage" style="margin-top: 5%"></a>
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false" style="color: white;">
+                <h5>Accesso</h5>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="Login.html">Login</a></li>
+                <li><a class="dropdown-item" href="Registrazione.html">Registrazione</a></li>
+                <li id="profiloNavItem" style="display: none;"><a class="dropdown-item" href="Profilo.html">Profilo</a></li>
+            </ul>
+        </div>
+  
+    </nav>
+
+
+    <!-- Login Form Container -->
+<div class="container mt-5">
+    <!-- Row for form alignment -->
+    <div class="row justify-content-center">
+        <!-- Form Column -->
+        <div class="col-md-3">
+            <!-- Login Form -->
+            <form onsubmit="event.preventDefault(); LOGIN()" method="post" class="custom-form">
+                <!-- Title -->
+                <h4 class="card-title text-center">Login</h4>
+                <br>
+                <!-- First row: Username -->
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="name" class="form-label">Username:</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                </div>
+                <!-- Second row: Password -->
+                <div class="col-md-12">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <!-- Third row (email) -->
+                <br>
+                <!-- Submit Button -->
+                <button class="btn btn-outline-success mx-auto d-block" type="submit" style="color: #FFFFFF;">Confirm</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JavaScript Library -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+<!-- JavaScript function for handling login -->
+<script>
+    function handleCheckboxClick(event, checkboxId) {
+          // Impedisci la propagazione dell'evento per evitare la chiusura del dropdown
+          event.stopPropagation();
+
+          // Trova il checkbox associato e cambia il suo stato
+          var checkbox = document.getElementById(checkboxId);
+          checkbox.checked = !checkbox.checked;
+      }
+        var genreCheckboxes = document.querySelectorAll('.form-check input[type="checkbox"]');
+        console.log(genreCheckboxes.length);
+        genreCheckboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('click', function (event) {
+                handleCheckboxClick(event, checkbox.id);
+            });
+        });
+      document.getElementById('searchButton').addEventListener('click', function () {
+            // Logica per ottenere l'username
+            const username = getParameterByName('username', window.location.href);
+
+            // Logica per ottenere le categorie
+            const categorie = getCategories();
+
+            // Aggiungi i parametri all'URL di destinazione
+            const form = document.getElementById('searchForm');
+            console.log(username);
+            console.log(categorie);
+            let destinationUrl = `categoriefilm.html?username=${encodeURIComponent(username)}`;
+
+            // Aggiungi ogni categoria come parametro separato
+            categorie.forEach(category => {
+                destinationUrl += `&categorie[]=${encodeURIComponent(category)}`;
+            });
+
+            // Esegui la redirezione manuale
+            window.location.href = destinationUrl;
+        });
+
+        function getCategories() {
+            const checkboxes = document.querySelectorAll('.form-check input[type="checkbox"]:checked');
+            const selectedCategories = Array.from(checkboxes).map(checkbox => checkbox.id.replace("Checkbox", ""));
+            console.log(selectedCategories); // Controlla i valori qui
+            return selectedCategories;
+        }
+    window.onload = function() {
+      // Ottieni l'URL della pagina corrente
+      const currentUrl = window.location.href;
+      // Ottieni l'username dal parametro dell'URL 'username'
+      const username = getParameterByName('username', currentUrl);
+      // Add an event listener to each link in the navigation menu
+        document.querySelectorAll('.navbar-nav a').forEach(link => {
+            // Append username as a query parameter to the href attribute
+            link.href += `?username=${encodeURIComponent(username)}`;
+        });
+        document.querySelectorAll('.dropdown-menu a').forEach(link => {
+            // Append username as a query parameter to the href attribute
+            link.href += `?username=${encodeURIComponent(username)}`;
+        });
+        if (username) {
+            document.getElementById('profiloNavItem').style.display = 'block';
+        }
+        function getParameterByName(name, url) {
+          if (!url) {
+           url = window.location.href;
+          }
+          name = name.replace(/[\[\]]/g, "\\$&");
+          const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+          const results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, " "));
+       }
+       checkImagePresence(username);
+      }
+    function getParameterByName(name, url) {
+          if (!url) {
+           url = window.location.href;
+          }
+          name = name.replace(/[\[\]]/g, "\\$&");
+          const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+          const results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, " "));
+       }
+    function LOGIN() {
+        // Prepare the data from form inputs
+        let requestBody = {
+            name: document.getElementById('username').value,
+            password: document.getElementById('password').value
+        };
+
+        // Convert data to JSON format
+        let jsonString = JSON.stringify(requestBody);
+
+        // Send a POST request to the server's login API endpoint
+        fetch('http://127.0.0.1/api/login', {
+            method: 'POST',
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: jsonString
+        })
+        // Parse the response from the server as JSON
+        .then(response => response.json())
+        // Handle the response data
+        .then(response => {
+            if (!response.ok) {
+                alert("The entered data are not valid. Please verify and try again.");
+                throw new Error('Network response was not ok');
+            }
+            else{
+                // Log the response data to the console
+                console.log(response);
+                // Redirect the user to 'nuovo.html' upon successful login
+                window.location.href = `nuovo.html?username=${encodeURIComponent(requestBody.name)}`;
+            }
+        });
+    }
+    function getParameterByName(name, url) {
+          if (!url) {
+           url = window.location.href;
+          }
+          name = name.replace(/[\[\]]/g, "\\$&");
+          const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+          const results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, " "));
+       }
+        function SEARCH() {
+            let nome = document.getElementById('nome').value;
+            let url;
+            // Get the 'username' from the URL parameter
+            const username = getParameterByName('username', window.location.href);
+            if(username.length>0){
+                // Construct the URL with both parameters
+                url = `http://127.0.0.1/api/search?nome=${encodeURIComponent(nome)}&username=${encodeURIComponent(username)}`;
+            }
+            else{
+                url = `http://127.0.0.1/api/search?nome=${encodeURIComponent(nome)}`;
+            }
+
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Attendiamo la risposta come JSON
+            })
+            .then(responseJson => {
+                if (responseJson.film) {
+                    // Serializza l'oggetto film in una stringa JSON e passalo nell'URL
+                    let filmData = encodeURIComponent(JSON.stringify(responseJson.film));
+
+                    // Reindirizzamento alla pagina search.html con i dati nell'URL
+                    window.location.href = `search.html?nome=${filmData}`;
+                } else {
+                    console.log(responseJson.error); // Messaggio se non è stato trovato alcun film
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        // Funzione per gestire la risposta del server e impostare l'attributo src dell'immagine
+        function handleImageResponse(data) {
+                    const profileImage = document.getElementById('profileImage');
+
+                    if (data.success && data.imagePresent) {
+                        // Se la richiesta al server è avvenuta con successo e l'immagine è presente,
+                        // imposta l'attributo src con l'URL dell'immagine
+                        profileImage.src = `uploads/${data.image}`;
+                        profileImage.style.display = 'block';
+                    } else {
+                        // Se c'è stato un errore o l'immagine non è presente, imposta l'attributo src con l'immagine predefinita
+                        profileImage.src = 'uploads/user.png';
+                        profileImage.style.display = 'block';
+                    }
+                }
+                
+        // Funzione per verificare la presenza dell'immagine nel server
+        function checkImagePresence(username) {
+                    // Effettua una richiesta fetch alla tua API per verificare la presenza dell'immagine
+                    fetch(`http://127.0.0.1/api/checkimage?username=${username}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {console.log(data);
+                            // Gestisci la risposta del server e imposta l'attributo src dell'immagine
+                            handleImageResponse(data);
+                        })
+                        .catch(error => {
+                            handleImageResponse({ success: false, imagePresent: false, username: null });
+                        });
+                }
+      </script> 
+      <div id="customAlert" class="custom-alert">
+        <span class="close-btn" onclick="hideCustomAlert()">×</span>
+        <p id="alertMessage"></p>
+    </div>
+</body>
+
+</html>

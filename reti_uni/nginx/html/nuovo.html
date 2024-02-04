@@ -1,0 +1,692 @@
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EDFilms</title>
+    
+    <link rel="icon" href="Icona_Scheda.png" sizes="32x32">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .navbar{
+            position:fixed;
+            z-index: 3;
+            width:100%;
+        }
+        /* Stile di base per il pulsante */
+        .pulsante {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            color:#360B72;
+            cursor: pointer;
+            border-radius: 5px; /* Angoli arrotondati */
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+        
+        /* Stile quando il cursore passa sopra al pulsante */
+        .pulsante:hover {
+            background-color: #9825B6; /* Colore di sfondo al passaggio del mouse */
+            color: white; /* Colore del testo al passaggio del mouse */
+        }
+    </style>
+  </head>
+
+
+  <body style="background-color: black;">
+    <nav class="navbar navbar-expand-lg" style="background-color: #33006E; height: 12%">
+
+        <div class="container-fluid" style="background-color: #33006E;">
+            <a class="navbar-brand" href="#"><img src="Logo.png" alt="Bootstrap" width="120" height="90"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Home.html"
+                            style="color: white;"><h4>Home</h4></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="nuovo.html"
+                            style="color: white;"><h4>Film</h4></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            <h4>Generi</h4>
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li class="nav-item">
+                              <a style="color: white; text-align: center"><h6>Seleziona Generi:</h6></a>
+                          </li>
+                          <form action="categoriefilm.html" method="get" id="searchForm">   
+                          <li>
+                              <div class="form-check genre-item">
+                                <input class="form-check-input" type="checkbox" id="azioneCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                <label class="form-check-label" for="azioneCheckbox">
+                                  <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'azioneCheckbox')">Azione</a>
+                                </label>
+                              </div>
+                            </li>
+                            <li>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="avventuraCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                    <label class="form-check-label genre-item" for="avventuraCheckbox">
+                                        <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'avventuraCheckbox')">Avventura</a>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="biograficoCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                <label class="form-check-label genre-item" for="biograficoCheckbox">
+                                    <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'biograficoCheckbox')">Biografico</a>
+                                </label>
+                            </div>
+                            </li>
+                            <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="commediaCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="commediaCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'commediaCheckbox')">Commedia</a>
+                                  </label>
+                              </div>
+                            </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="drammaticoCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="drammaticoCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'drammaticoCheckbox')">Drammatico</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="fantascienzaCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="fantascienzaCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'fantascienzaCheckbox')">Fantascienza</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="fantasyCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="fantasyCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'fantasyCheckbox')">Fantasy</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="horrorCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="horrorCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'horrorCheckbox')">Horror</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="musicaleCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="musicaleCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'musicaleCheckbox')">Musicale</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="poliziescoCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="poliziescoCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'poliziescoCheckbox')">Poliziesco</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="romanticoCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="romanticoCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'romanticoCheckbox')">Romantico</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="storicoCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="storicoCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'storicoCheckbox')">Storico</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="thrillerCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="thrillerCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'thrillerCheckbox')">Thriller</a>
+                                  </label>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="westernCheckbox" style="margin-left: -12px; margin-right: 5px">
+                                  <label class="form-check-label genre-item" for="westernCheckbox">
+                                      <a class="dropdown-item" href="#" onclick="handleCheckboxClick(event, 'westernCheckbox')">Western</a>
+                                  </label>
+                              </div>
+                          </li>
+                              
+                          <button type="button" id="searchButton" class="btn btn-outline-success" style="color: #FFFFFF; background: #33006E;" onmouseover="this.style.background='#FF00AD'" onmouseout="this.style.background='#33006E'">Applica Ricerca Dettagliata</button>
+  
+                          </form>
+  
+                      </li>
+                  </ul>
+                </ul>
+                <form class="d-flex" role="search" onsubmit="event.preventDefault(); SEARCH()" method="POST">
+                    <input class="form-control me-2" type="search" placeholder="Cerca..." aria-label="Search"
+                        name="search_query" id="nome">
+                    <button class="btn btn-outline-success" type="submit"
+                        style="color:#FFFFFF">Ricerca</button>
+                </form>
+            </div>
+        </div>
+  
+        <div class="nav-item dropdown">
+            <a class="navbar-brand" href="#"><img src="Login1.png" alt="Bootstrap" width="60" height="60"
+                    id="profileImage" style="margin-top: 5%"></a>
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false" style="color: white;">
+                <h5>Accesso</h5>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="Login.html">Login</a></li>
+                <li><a class="dropdown-item" href="Registrazione.html">Registrazione</a></li>
+                <li id="profiloNavItem" style="display: none;"><a class="dropdown-item" href="Profilo.html">Profilo</a></li>
+            </ul>
+        </div>
+  
+    </nav>
+      <div class="modal-overlay">
+        <div class="modal-content">
+          <div id="innerDiv"><!-- Verify that this element contains the content you want to modify -->
+            <!-- Content that will be modified -->
+          </div>
+        </div>
+      </div>
+      <div id="filmsContainer" class="cont">
+        <div class="container"> <!-- Movie data will be dynamically added here -->
+        </div>
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+        function handleCheckboxClick(event, checkboxId) {
+          // Impedisci la propagazione dell'evento per evitare la chiusura del dropdown
+          event.stopPropagation();
+
+          // Trova il checkbox associato e cambia il suo stato
+          var checkbox = document.getElementById(checkboxId);
+          checkbox.checked = !checkbox.checked;
+      }
+        var genreCheckboxes = document.querySelectorAll('.form-check input[type="checkbox"]');
+        console.log(genreCheckboxes.length);
+        genreCheckboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('click', function (event) {
+                handleCheckboxClick(event, checkbox.id);
+            });
+        });
+      document.getElementById('searchButton').addEventListener('click', function () {
+            // Logica per ottenere l'username
+            const username = getParameterByName('username', window.location.href);
+
+            // Logica per ottenere le categorie
+            const categorie = getCategories();
+
+            // Aggiungi i parametri all'URL di destinazione
+            const form = document.getElementById('searchForm');
+            console.log(username);
+            console.log(categorie);
+            // Costruisci l'URL di destinazione manualmente
+            let destinationUrl = `categoriefilm.html?username=${encodeURIComponent(username)}`;
+
+            // Aggiungi ogni categoria come parametro separato
+            categorie.forEach(category => {
+                destinationUrl += `&categorie[]=${encodeURIComponent(category)}`;
+            });
+
+            // Esegui la redirezione manuale
+            window.location.href = destinationUrl;
+        });
+
+        function getCategories() {
+            const checkboxes = document.querySelectorAll('.form-check input[type="checkbox"]:checked');
+            const selectedCategories = Array.from(checkboxes).map(checkbox => checkbox.id.replace("Checkbox", ""));
+            console.log(selectedCategories); // Controlla i valori qui
+            return selectedCategories;
+        }
+      // Ottieni l'URL della pagina corrente
+      const currentUrl = window.location.href;
+      // Ottieni l'username dal parametro dell'URL 'username'
+      const username = getParameterByName('username', currentUrl);
+      // Add an event listener to each link in the navigation menu
+        document.querySelectorAll('.navbar-nav a').forEach(link => {
+            // Append username as a query parameter to the href attribute
+            link.href += `?username=${encodeURIComponent(username)}`;
+        });
+        document.querySelectorAll('.dropdown-menu a').forEach(link => {
+            // Append username as a query parameter to the href attribute
+            link.href += `?username=${encodeURIComponent(username)}`;
+        });
+      // Funzione per ottenere il valore del parametro dall'URL
+      function getParameterByName(name, url) {
+          if (!url) {
+           url = window.location.href;
+          }
+          name = name.replace(/[\[\]]/g, "\\$&");
+          const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+          const results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, " "));
+       }
+      function SEARCH() {
+            let nome = document.getElementById('nome').value;
+            let url;
+            // Get the 'username' from the URL parameter
+            const username = getParameterByName('username', window.location.href);
+            if(username.length>0){
+                // Construct the URL with both parameters
+                url = `http://127.0.0.1/api/search?nome=${encodeURIComponent(nome)}&username=${encodeURIComponent(username)}`;
+            }
+            else{
+                url = `http://127.0.0.1/api/search?nome=${encodeURIComponent(nome)}`;
+            }
+
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // We expect the response as JSON
+            })
+            .then(responseJson => {
+                if (responseJson.film) {
+                    // Serialize the 'film' object into a JSON string and pass it in the URL
+                    let filmData = encodeURIComponent(JSON.stringify(responseJson.film));
+
+                    // Redirect to the search.html page with the data in the URL
+                    window.location.href = `search.html?nome=${filmData}`;
+                } else {
+                    console.log(responseJson.error); // Send a message in the console window if there was an error
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        window.onload = function() {
+            const username = getParameterByName('username', window.location.href);
+            getFilmLibrary(username);
+            setTimeout(function() {
+                animateDivsToCenter(); // Move the divs to the center with animation
+        }, 100); // Delay the animation by 100 milliseconds after the page loads
+        // Se "username" è presente nell'URL, mostra l'elemento "Profilo" nel menu di accesso
+        if (username) {
+            document.getElementById('profiloNavItem').style.display = 'block';
+        }
+            // Activate a click event handler for each div with the class animatedDiv as well
+            document.querySelectorAll('.animatedDiv').forEach(div => {
+                div.addEventListener('click', () => {
+                    const imgSrc = div.querySelector('img').getAttribute('src');
+                    const videoSrc = imgSrc.replace(/\.(jpg|jpeg)$/i, '.mp4');
+                    const h1Element = div.querySelector('h1');
+                    const h1Text = h1Element.textContent;
+                    const ulElement = div.querySelector('ul');
+                    const liElements = ulElement.querySelectorAll('li');
+
+                    openModal(videoSrc, h1Text, liElements);
+                });
+            });
+            function getParameterByName(name, url) {
+                if (!url) {
+                url = window.location.href;
+                }
+                name = name.replace(/[\[\]]/g, "\\$&");
+                const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+                const results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+        checkImagePresence(username);
+};
+
+function getFilmLibrary(username) {
+    let mouseLeftContainer = true;
+    let modalTimeout;
+    fetch('http://127.0.0.1/api/films', {
+        method: 'GET',
+        withCredentials: true,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(responseJson => {
+        if (responseJson.films && responseJson.films.length > 0) {
+            let filmLibrary = responseJson.films;
+            let filmsContainer = document.getElementById('filmsContainer');
+            let i=0;
+
+            filmLibrary.forEach(film => {
+                let filmDiv = document.createElement('div');
+                console.log(film);
+                console.log(i);
+                filmDiv.classList.add('animatedDiv');
+                const randomClass = getCycleColor(i);
+                filmDiv.classList.add(randomClass);
+                i++;
+
+                const truncatedName = film.NOME_FILM.length > 14 ? `${film.NOME_FILM.slice(0, 14)}..` : film.NOME_FILM;
+
+                filmDiv.innerHTML = `
+                    <img src="uploads/${film.NOME_FILM}.jpg" alt="${film.NOME_FILM}" style="width: 100%; height: 70%;" />
+                    <h3 style="color:white;">${truncatedName}</h3>
+                    <ul class="a">
+                        <li>Nome: ${film.NOME_FILM}</li>
+                        <li>Descrizione: ${film.DESCRIZIONE}</li>
+                        <li>ANNO:${film.ANNO}</li>
+                    </ul>
+                `;
+
+                filmsContainer.appendChild(filmDiv);
+
+                filmDiv.addEventListener('click', function() {
+                    const imgSrc = this.querySelector('img').getAttribute('src');
+                    const videoSrc = imgSrc.replace(/\.(jpg|jpeg)$/i, '.mp4');
+                    const h3Element = this.querySelector('h3');
+                    const h3Text = h3Element.textContent;
+                    const ulElement = this.querySelector('ul');
+                    const liElements = ulElement.querySelectorAll('li');
+                    console.log(film.COD_FILM);
+                    openModal(videoSrc, h3Text, liElements,film.COD_FILM,username);
+                });
+
+                filmDiv.addEventListener('mouseleave', function(event) {
+                    console.log(randomClass);
+                    filmDiv.classList.remove('viola'); // Rimuovi la classe 'viola'
+                    filmDiv.classList.add(randomClass);
+                    const isMouseOut = !this.contains(event.relatedTarget);
+                    const innerDiv = document.getElementById('innerDiv');
+                    const isMouseInsideInnerDiv = innerDiv.contains(event.relatedTarget);
+
+                    if (isMouseOut && !isMouseInsideInnerDiv) {
+                        mouseLeftContainer = true;
+                        modalTimeout = setTimeout(() => {
+                            if (mouseLeftContainer) {
+                                closeModal();
+                            }
+                        }, 200);
+                    }
+                });
+
+                filmDiv.addEventListener('mouseenter', function() {
+                    filmDiv.classList.add('viola');
+                    mouseLeftContainer = false;
+                    clearTimeout(modalTimeout);
+                });
+            });
+
+            function closeModal() {
+                const modalOverlay = document.querySelector('.modal-overlay');
+                const innerDiv = document.getElementById('innerDiv');
+
+                innerDiv.innerHTML = ''; // Remove the content
+                modalOverlay.style.display = 'none'; // Hide the modal overlay
+            }
+
+            // After adding all the divs, let's add the function to center them
+            animateDivsToCenter();
+        } else {
+            console.log('Nessun film trovato.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+        function getCycleColor(index) {
+            const colors = ['blue', 'red', 'green', 'yellow']; // Array of colors
+            const colorIndex = index % colors.length; // Calculate the index to retrieve the color
+            return colors[colorIndex]; // Return the color based on the index
+        }
+
+        function animateDivsToCenter() {
+            // Select the container and all animated divs
+            var container = document.querySelector('.container');
+            var divs = document.querySelectorAll('.animatedDiv');
+            console.log(divs);
+            // Initialize variables for calculations
+            var containerWidth = container.offsetWidth;
+            var totalWidth = 0;
+            var currentLineHeight = 45;
+            var currentLineWidth = 0;
+            var lineHeight = 0;
+            var marginLeft = 10; // Space between divs
+
+            // Loop through each div to position them in the container
+            divs.forEach(function(div) {
+                var divWidth = div.offsetWidth;
+                var divHeight = div.offsetHeight;
+
+                // If the div exceeds the container's width, move to the next line
+                if (currentLineWidth + divWidth > containerWidth) {
+                currentLineHeight += lineHeight + marginLeft;
+                currentLineWidth = 0;
+                lineHeight = 0;
+                }
+
+                // Set the position of the div
+                div.style.top = currentLineHeight + 'px';
+                div.style.left = currentLineWidth + 'px';
+
+                // Update values for the next div placement
+                currentLineWidth += divWidth + marginLeft;
+                totalWidth = Math.max(totalWidth, currentLineWidth);
+                lineHeight = Math.max(lineHeight, divHeight);
+            });
+        
+            // Set the container's width to accommodate all positioned divs
+            container.style.width = totalWidth + 'px';
+        }
+        // This function will handle opening the screen in the center
+function openModal(videoSrc, h1Text, liElements,cod_film,username) {console.log(cod_film);
+    console.log("openModal function called");
+    const modalOverlay = document.querySelector('.modal-overlay');
+    const innerDiv = document.getElementById('innerDiv');
+    fetchAverageRating(cod_film)
+    .then(averageRating => {
+        const videoElement = document.createElement('video');
+        videoElement.setAttribute('src', videoSrc);
+        videoElement.setAttribute('width', '700');
+        videoElement.setAttribute('height', '400');
+        videoElement.setAttribute('controls', 'true');
+
+        const textContainer = document.createElement('div');
+        const h1TextElement = document.createElement('h1');
+        const ulTextElement = document.createElement('ul');
+        const averageRatingElement = document.createElement('span');
+        const buttonContainer = document.createElement('div');
+        const redirectButton = document.createElement('button');
+
+        h1TextElement.textContent = h1Text;
+        h1TextElement.style.color = 'white';
+        h1TextElement.style.marginLeft = '4%'; // applica un margine a destra del 4%
+        averageRatingElement.innerHTML = `Media valutazioni: ${averageRating}&#128077;`;
+        averageRatingElement.style.color = 'white';
+        liElements.forEach(li => {
+            const liText = document.createElement('li');
+            liText.textContent = li.textContent;
+            ulTextElement.appendChild(liText);
+            ulTextElement.style.color = 'white';
+        });
+        textContainer.appendChild(h1TextElement);
+        textContainer.appendChild(ulTextElement);
+        // Adding the star rating system
+        const starContainer = document.createElement('div');
+        if (username) {
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement('span');
+                star.textContent = "★";
+                star.style.cursor = "pointer";
+                star.style.fontSize = "24px";
+                star.style.color = "gray";
+                star.setAttribute('data-rating', i);
+                star.addEventListener('click', function(event) {
+                    const selectedRating = event.target.getAttribute('data-rating');
+                    console.log('Selected rating:', selectedRating);
+                    // Invia il valore della valutazione al backend quando una stella viene cliccata
+                    sendFilmRating(cod_film, selectedRating); // Assicurati di avere 'filmId' disponibile qui
+                });
+                starContainer.appendChild(star);
+            }
+        }
+        if(username != null){
+            redirectButton.textContent = 'Commenta';console.log(username)
+            redirectButton.className = 'pulsante';
+            redirectButton.addEventListener('click', function() {
+                // Reindirizza l'utente alla pagina desiderata
+                window.location.href = 'http://localhost:8000/index.html?cod_film=' + cod_film+ '&username=' +username;
+            });
+            buttonContainer.style.position = 'absolute';
+            buttonContainer.style.left = '50%';
+            buttonContainer.style.transform = 'translateX(-50%)';
+            buttonContainer.appendChild(redirectButton);
+        }
+        // To update innerDiv with the video and text
+        innerDiv.innerHTML = '';
+        innerDiv.appendChild(videoElement);
+        innerDiv.appendChild(textContainer);
+        innerDiv.appendChild(starContainer);
+        innerDiv.appendChild(averageRatingElement);
+        innerDiv.appendChild(buttonContainer);
+
+        // To set the style to display the screen in the center
+        innerDiv.style.position = 'fixed';
+        innerDiv.style.top = '50%';
+        innerDiv.style.left = '50%';
+        innerDiv.style.transform = 'translate(-50%, -50%)';
+        modalOverlay.style.display = 'flex';
+    })
+    .catch(error => {
+        console.error('Error fetching average rating:', error);
+    });
+}
+// Funzione per inviare la valutazione del film al backend
+function sendFilmRating(cod_film, ratingValue) {
+    const url = 'http://127.0.0.1/api/recensione'; // URL della route nel backend per l'aggiornamento della valutazione
+    const data = {
+        cod_film: cod_film,//COD_FILM serve a cercare il film da modificare
+        username:username,
+        valutazione: ratingValue // Valore della nuova valutazione del film
+    };
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Valutazione del film inviata con successo.');
+            // Puoi eseguire altre azioni dopo l'invio della valutazione, se necessario
+        } else {
+            return response.json().then(errorData => {
+                console.log(response)
+            throw new Error('Errore durante l\'invio della valutazione del film.');});
+        }
+    })
+    .catch(error => {
+        console.error('Si è verificato un errore:', error);
+        // Gestisci eventuali errori durante l'invio della valutazione
+    });
+}
+function fetchAverageRating(cod_film) {
+    const url = 'http://127.0.0.1/api/average';
+    const data = {
+        cod_film: cod_film,
+    };
+
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data && typeof data.average_ratings !== 'undefined') {
+            return parseFloat(data.average_ratings);
+        } else {
+            throw new Error('Dati della valutazione non validi');
+        }
+    });
+}
+        // Funzione per gestire la risposta del server e impostare l'attributo src dell'immagine
+        function handleImageResponse(data) {
+                    const profileImage = document.getElementById('profileImage');
+
+                    if (data.success && data.imagePresent) {
+                        // Se la richiesta al server è avvenuta con successo e l'immagine è presente,
+                        // imposta l'attributo src con l'URL dell'immagine
+                        profileImage.src = `uploads/${data.image}`;
+                        profileImage.style.display = 'block';
+                    } else {
+                        // Se c'è stato un errore o l'immagine non è presente, imposta l'attributo src con l'immagine predefinita
+                        profileImage.src = 'uploads/user.png';
+                        profileImage.style.display = 'block';
+                    }
+                }
+                
+        // Funzione per verificare la presenza dell'immagine nel server
+        function checkImagePresence(username) {
+                    // Effettua una richiesta fetch alla tua API per verificare la presenza dell'immagine
+                    fetch(`http://127.0.0.1/api/checkimage?username=${username}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {console.log(data);
+                            // Gestisci la risposta del server e imposta l'attributo src dell'immagine
+                            handleImageResponse(data);
+                        })
+                        .catch(error => {
+                            handleImageResponse({ success: false, imagePresent: false, username: null });
+                        });
+                }
+    </script>  
+  </body>
+</html>
