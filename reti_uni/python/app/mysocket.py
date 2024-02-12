@@ -12,7 +12,6 @@ app.config["CHAT_LOG_DIR"] = CHAT_LOG_DIR
 
 @app.route('/')
 def index():
-    print("Gestione della richiesta per index.html")  # Aggiungi questo print per debug
     return render_template('index.html')
 
 @app.route("/join")
