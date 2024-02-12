@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory,request,jsonify,send_file
+from flask import Flask, send_from_directory,request,jsonify,send_file,render_template
 from flask_cors import CORS
 import os
 import json
@@ -9,6 +9,11 @@ CORS(app)  # Abilita CORS per tutto l'app Flask
 # Configura la directory per i file statici (i tuoi log della chat)
 CHAT_LOG_DIR = "chat_logs"
 app.config["CHAT_LOG_DIR"] = CHAT_LOG_DIR
+
+@app.route('/')
+def index():
+    print("Gestione della richiesta per index.html")  # Aggiungi questo print per debug
+    return render_template('index.html')
 
 @app.route("/join")
 def join():
