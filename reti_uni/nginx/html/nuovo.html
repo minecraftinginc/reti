@@ -574,7 +574,7 @@ function openModal(videoSrc, h1Text, liElements,cod_film,username) {console.log(
             redirectButton.className = 'pulsante';
             redirectButton.addEventListener('click', function() {
                 // Reindirizza l'utente alla pagina desiderata
-                window.location.href = 'http://localhost:5000/index.html?cod_film=' + cod_film+ '&username=' +username;
+                window.location.href = 'http://localhost:5000/?cod_film=' + cod_film+ '&username=' +username;
             });
             buttonContainer.style.position = 'absolute';
             buttonContainer.style.left = '50%';
